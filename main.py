@@ -1,11 +1,14 @@
 from Individual import Individual
 
+POPULATION_SIZE = 1
+
 def main():
     generation = 0
     population = []
     solve = False
-    initial(2 , population)
+    initial(POPULATION_SIZE , population)
     [print(i.chromosome) for i in population]
+
 
 
 
@@ -21,4 +24,5 @@ def initial(size , population):
 
 
 if __name__ == '__main__':
+    # target = input()
     main()
