@@ -20,3 +20,13 @@ class Individual:
         return [cls.randomMove() for _ in range(CHROMOSOME_LENGTH)]
     
 
+    def mutation(self):
+        p = random.random()
+        if p < 0.2 :
+            randIndex = random.randint(0, CHROMOSOME_LENGTH -1) 
+            self.chromosome[randIndex] = 0
+
+
+
+
+
