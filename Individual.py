@@ -29,6 +29,36 @@ class Individual:
             randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
             self.chromosome[randIndex] = 0
     
+
+    def crossover (self , mate):
+
+        # chromosome for offspring
+        child_chromosome = []
+        for gp1, gp2 in zip(self.chromosome, mate.chromosome):
+
+            # random probability
+            prob = random.random()
+
+            # if prob is less than 0.45, insert gene
+            # from parent 1
+            if prob < 0.45:
+            	child_chromosome.append(gp1)
+
+            # if prob is between 0.45 and 0.90, insert
+            # gene from parent 2
+            elif prob < 0.90:
+            	child_chromosome.append(gp2)
+
+            # otherwise insert random gene(mutate),
+            # for maintaining diversity
+            else:
+            	child_chromosome.append(self.randomMove())
+
+        # create new Individual(offspring) using
+        # generated chromosome for offspring
+        return Individual(child_chromosome)
+
+
     def fittness(self):
 
         score = 0
