@@ -1,14 +1,16 @@
 import random
 
-CHROMOSOME_LENGTH = 12
+# CHROMOSOME_LENGTH = 12
 
 class Individual:
 
     level = "____"
+    CHROMOSOME_LENGTH = 0
 
     def __init__(self, chromosome):
         self.chromosome = chromosome
         self.fitness = self.fittness()
+        
 
     @classmethod 
     def randomMove(cls):
@@ -17,24 +19,37 @@ class Individual:
 
     @classmethod
     def create_chromosome(cls):
-        global CHROMOSOME_LENGTH
-        CHROMOSOME_LENGTH = len(cls.level)
-        return [cls.randomMove() for _ in range(CHROMOSOME_LENGTH)]
+        
+        return [cls.randomMove() for _ in range(cls.CHROMOSOME_LENGTH)]
     
 
     def mutation(self):
         p = random.random()
         if p < 0.2 :
-            randIndex = random.randint(0, CHROMOSOME_LENGTH -1) 
+            randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
             self.chromosome[randIndex] = 0
     
     def fittness(self):
 
         score = 0
-        for i in range(CHROMOSOME_LENGTH):
+        for i in range(self.CHROMOSOME_LENGTH):
             current_step = self.level[i]
 
+            # for useless jump
+            if( self.chromosome[i] == 1 or self.chromosome[i] == 2):
+                if(i == self.CHROMOSOME_LENGTH - 2):
+                    if(self.level[i + 1] == "_"):
+                        score += -999
+                elif(i < self.CHROMOSOME_LENGTH - 2):
+                    if(self.level[i + 1] == "_" and self.level[i + 2] == "_"):
+                        score += -999
+            
+            # restriction for double jump or continuous jumping and slipping continuous
+            if((self.chromosome[i] == 1 or self.chromosome[i] == 2) 
+                and i != (self.CHROMOSOME_LENGTH - 1) and self.chromosome[i + 1] != 0):
+                    score += -999
 
+            # main part
             if (current_step == '_'):
                 score += 10
             elif (current_step == 'G'):
@@ -56,24 +71,28 @@ class Individual:
                 
             elif (current_step == 'L' ):
 
-                if( self.chromosome[i - 1] == 2):
-                    score += 10
-                else :
+                if(i == 0):
                     score += -999
+                else:
+                    if( self.chromosome[i - 1] == 2):
+                        score += 10
+                    else :
+                        score += -999
                 
-            elif (self.chromosome[i - 1] != 1 and current_step == 'M' ):
-                score += 20
+            elif (current_step == 'M' and (i == 0 or self.chromosome[i - 1] != 1) ):
+                    score += 20
+
             
             
 
-
-        
-        
-
+        # for jump befor flag
         if(self.chromosome[-1] == 1):
             score += 10
 
         return score
 
 
-
+# Individual.level = "M_G__M___G"
+# Individual.CHROMOSOME_LENGTH = len("M_G__M___G")
+# gg = Individual([1,0,0,0,0,0,0,1,0,0])
+# print(gg.fitness)
