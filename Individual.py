@@ -66,48 +66,44 @@ class Individual:
             current_step = self.level[i]
 
             # for useless jump
-            if( self.chromosome[i] == 1 or self.chromosome[i] == 2):
+            if( self.chromosome[i] == 1 ):
                 if(i == self.CHROMOSOME_LENGTH - 2):
-                    if(self.level[i + 1] == "_"):
-                        score += -999
+                    if(self.level[i + 1] == "_" or self.level[i + 1] == "M"):
+                        score += -5
                 elif(i < self.CHROMOSOME_LENGTH - 2):
-                    if(self.level[i + 1] == "_" and self.level[i + 2] == "_"):
-                        score += -999
+                    if((self.level[i + 1] == "_" and self.level[i + 2] == "_") or (self.level[i + 1] == "M" and self.level[i + 2] == "M")
+                        or (self.level[i + 1] == "_" and self.level[i + 2] == "M") or (self.level[i + 1] == "M" and self.level[i + 2] == "_")):
+                        score += -5
             
             # restriction for double jump or continuous jumping and slipping continuous
-            if((self.chromosome[i] == 1 or self.chromosome[i] == 2) 
-                and i != (self.CHROMOSOME_LENGTH - 1) and self.chromosome[i + 1] != 0):
-                    score += -999
+            if(self.chromosome[i] == 1 and i != (self.CHROMOSOME_LENGTH - 1) 
+                and self.chromosome[i + 1] != 0):
+                    score += -99999
+                    continue
+
 
             # main part
             if (current_step == '_'):
                 score += 10
             elif (current_step == 'G'):
 
-                if(i == 0):
-                    score += -999
-                elif (i == 1):
-                    if(self.chromosome[i - 1] == 1):
-                        score += 10
-                    else:
-                        score += -999
+                if(self.chromosome[i - 1] == 1 and i == 1):
+                    score += 10
+                elif(self.chromosome[i - 2] == 1 and (i != 0 and i != 1)):
+                    score += 20
+                elif(self.chromosome[i - 1] == 1 and  (i != 0 and i != 1)):
+                    score += 10
                 else:
-                    if(self.chromosome[i - 2] == 1):
-                        score += 20
-                    elif(self.chromosome[i - 1] == 1):
-                        score += 10
-                    else:
-                        score += -999
+                    score += -99999
+                    continue
                 
             elif (current_step == 'L' ):
 
-                if(i == 0):
-                    score += -999
-                else:
-                    if( self.chromosome[i - 1] == 2):
-                        score += 10
-                    else :
-                        score += -999
+                if( self.chromosome[i - 1] == 2 and i != 0):
+                    score += 10
+                else :
+                    score += -99999
+                    continue
                 
             elif (current_step == 'M' and (i == 0 or self.chromosome[i - 1] != 1) ):
                     score += 20

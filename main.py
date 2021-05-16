@@ -4,7 +4,7 @@ import random
 POPULATION_SIZE = 50
 
 def main():
-    mylevel = "__G__M___G"
+    mylevel = "____G_ML__G_"
     generation = 1
     population = []
     solve = False
