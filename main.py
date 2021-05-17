@@ -1,8 +1,12 @@
 from Individual import Individual
 import random
 import json
-POPULATION_SIZE = 50
+import eel
 
+POPULATION_SIZE = 50
+eel.init("frontend")
+
+@eel.expose
 def main():
     mylevel = "____G_ML__G_"
     generation = 1
@@ -41,7 +45,18 @@ def main():
         [print("{} , {}, {}".format(i.chromosome , i.fitness , generation)) for i in population]
                
         generation += 1
-    return population[-1]
+    changed = changeAnswerForMap(population[-1].chromosome)
+    # changed = changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0])
+    print(changed)
+    return get_json_result({
+     "map" : list(mylevel),
+      "answer" : changed,
+    },
+    )
+
+
+    # return population[-1]
+
 
     
 
@@ -65,7 +80,6 @@ def initial(size , population , mylevel):
 def get_json_result(results):
     return json.dumps(results)
 
-
 def changeAnswerForMap(answer):
     changed = []
     checkContinue = True
@@ -85,19 +99,18 @@ def changeAnswerForMap(answer):
                 checkContinue = False
         else:
             checkContinue = True
+    # 
+    return changed
     
-    # return changed
-    return get_json_result({
-     "answer" : changed,
-    },
-    )
-
 
 
 
 
 if __name__ == '__main__':
     # target = input()
-    answer =  main()
-    changeAnswerForMap(answer)
+    main()
+    # changeAnswerForMap(answer)
     # print(changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0]))
+
+
+eel.start('index.html' ,size=(500,500))
