@@ -92,11 +92,16 @@ def changeAnswerForMap(answer):
                 changed.append(0)
                 changed.append(5)
             elif answer[i] == 1:
-                changed.append(1)
-                changed.append(0)
-                changed.append(0)
-                changed.append(4)
-                checkContinue = False
+                if(i == len(answer) -1):
+                    changed.append(1)
+                    changed.append(0)
+                    changed.append(4)
+                else:    
+                    changed.append(1)
+                    changed.append(0)
+                    changed.append(0)
+                    changed.append(4)
+                    checkContinue = False
         else:
             checkContinue = True
     # 
