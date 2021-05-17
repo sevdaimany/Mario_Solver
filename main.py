@@ -1,5 +1,7 @@
 from Individual import Individual
 import random
+import json
+
 
 POPULATION_SIZE = 50
 
@@ -60,6 +62,10 @@ def initial(size , population , mylevel):
         population.append(Individual(chromosome))
 
     
+   
+def get_json_result(results):
+    return json.dumps(results)
+
 
 
 
