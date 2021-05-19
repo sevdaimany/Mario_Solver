@@ -78,14 +78,14 @@ class Individual:
             # restriction for double jump or continuous jumping and slipping continuous
             if(self.chromosome[i] == 1 and i != (self.CHROMOSOME_LENGTH - 1) 
                 and self.chromosome[i + 1] != 0):
-                    score += -99999
+                    score += -5
+
                     continue
 
 
             # main part
-            if (current_step == '_'):
-                score += 10
-            elif (current_step == 'G'):
+           
+            if (current_step == 'G'):
 
                 if(self.chromosome[i - 1] == 1 and i == 1):
                     score += 10
