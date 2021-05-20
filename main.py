@@ -3,7 +3,7 @@ import random
 import json
 import eel
 
-POPULATION_SIZE = 50
+POPULATION_SIZE = 1000
 eel.init("frontend")
 
 @eel.expose
@@ -15,8 +15,8 @@ def main():
     initial(POPULATION_SIZE , population , mylevel)
 
     population = sorted(population, key = lambda x:x.fitness)
-
-    for i in range(50):
+   
+    for i in range(20):
 
         # sort the population in increasing order of fitness score
         # population = sorted(population, key = lambda x:x.fitness)
@@ -27,14 +27,14 @@ def main():
         # Perform Elitism, that mean 10% of fittest population
         # goes to the next generation
         s = int((50*POPULATION_SIZE)/100)
-        new_generation.extend(population[s:])       
+        # new_generation.extend(population[-1* s:])       
 
         # From 50% of fittest population, Individuals
         # will mate to produce offspring
         s = int((50*POPULATION_SIZE)/100)
         for _ in range(s):
-        	parent1 = random.choice(population[:50])
-        	parent2 = random.choice(population[:50])
+        	parent1 = random.choice(population[-50:])
+        	parent2 = random.choice(population[-50:])
         	child = parent1.crossover(parent2)
         	new_generation.append(child)  
 
@@ -47,7 +47,7 @@ def main():
         generation += 1
     changed = changeAnswerForMap(population[-1].chromosome)
     # changed = changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0])
-    print(changed)
+    # print(changed)
     return get_json_result({
      "map" : list(mylevel),
       "answer" : changed,
@@ -56,10 +56,6 @@ def main():
 
 
     # return population[-1]
-
-
-    
-
 
 
 
@@ -102,6 +98,8 @@ def changeAnswerForMap(answer):
                     changed.append(0)
                     changed.append(4)
                     checkContinue = False
+
+
         else:
             checkContinue = True
     # 
@@ -111,9 +109,9 @@ def changeAnswerForMap(answer):
 
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # target = input()
-    main()
+    # main()
     # changeAnswerForMap(answer)
     # print(changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0]))
 
