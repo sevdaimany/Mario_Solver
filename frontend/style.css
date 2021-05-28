@@ -1,0 +1,12 @@
+h1{
+    text-align: center;
+    font-size: 60px;
+    color: beige;
+    font-weight: bold;
+    text-shadow: 5px 5px 3px rgba(223, 0, 0, 0.836);
+
+}
+
+html{
+    background-color: #191970;
+}
