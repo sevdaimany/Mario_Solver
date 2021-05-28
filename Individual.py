@@ -1,7 +1,5 @@
 import random
 
-# CHROMOSOME_LENGTH = 12
-
 class Individual:
 
     level = "____"
@@ -29,34 +27,6 @@ class Individual:
              child[randIndex] = 0
     
 
-    # def crossover (self , mate):
-
-    #     # chromosome for offspring
-    #     child_chromosome = []
-    #     for gp1, gp2 in zip(self.chromosome, mate.chromosome):
-
-    #         # random probability
-    #         prob = random.random()
-
-    #         # if prob is less than 0.45, insert gene
-    #         # from parent 1
-    #         if prob < 0.5:
-    #         	child_chromosome.append(gp1)
-
-    #         # if prob is between 0.45 and 0.90, insert
-    #         # gene from parent 2
-    #         else:
-    #         	child_chromosome.append(gp2)
-
-    #         # otherwise insert random gene(mutate),
-    #         # for maintaining diversity
-            
-    #         self.mutation()
-
-    #     # create new Individual(offspring) using
-    #     # generated chromosome for offspring
-
-        # return Individual(child_chromosome)
 
     def crossover(self , mate):
         child_chromosome1 = []
@@ -77,66 +47,6 @@ class Individual:
 
 
 
-
-    # def fittness(self):
-
-    #     score = 0
-    #     for i in range(self.CHROMOSOME_LENGTH):
-    #         current_step = self.level[i]
-
-    #         # for useless jump
-    #         if( self.chromosome[i] == 1 ):
-    #             if(i == self.CHROMOSOME_LENGTH - 2):
-    #                 if(self.level[i + 1] == "_" or self.level[i + 1] == "M"):
-    #                     score += -5
-    #             elif(i < self.CHROMOSOME_LENGTH - 2):
-    #                 if((self.level[i + 1] == "_" and self.level[i + 2] == "_") or (self.level[i + 1] == "M" and self.level[i + 2] == "M")
-    #                     or (self.level[i + 1] == "_" and self.level[i + 2] == "M") or (self.level[i + 1] == "M" and self.level[i + 2] == "_")):
-    #                     score += -5
-            
-    #         # restriction for double jump or continuous jumping and slipping continuous
-    #         if(self.chromosome[i] == 1 and i != (self.CHROMOSOME_LENGTH - 1) 
-    #             and self.chromosome[i + 1] != 0):
-    #                 score += -5
-
-    #                 continue
-
-
-    #         # main part
-           
-    #         if (current_step == 'G'):
-
-    #             if(self.chromosome[i - 1] == 1 and i == 1):
-    #                 score += 10
-    #             elif(self.chromosome[i - 2] == 1 and (i != 0 and i != 1)):
-    #                 score += 20
-    #             elif(self.chromosome[i - 1] == 1 and  (i != 0 and i != 1)):
-    #                 score += 10
-    #             else:
-    #                 score += -99999
-    #                 continue
-                
-    #         elif (current_step == 'L' ):
-
-    #             if( self.chromosome[i - 1] == 2 and i != 0):
-    #                 score += 10
-    #             else :
-    #                 score += -99999
-    #                 continue
-                
-    #         elif (current_step == 'M' and (i == 0 or self.chromosome[i - 1] != 1) ):
-    #                 score += 20
-
-            
-            
-
-    #     # for jump befor flag
-    #     if(self.chromosome[-1] == 1):
-    #         score += 10
-
-    #     return score
-    
-
     def fittness(self):
     
         score = 0
@@ -145,7 +55,6 @@ class Individual:
         for i in range(self.CHROMOSOME_LENGTH):
             current_step = self.level[i]
 
-            # for useless jump
             if( self.chromosome[i] == 1 ):
                 if(i == self.CHROMOSOME_LENGTH - 2):
                     if(self.level[i + 1] == "_" or self.level[i + 1] == "M"):
@@ -199,18 +108,9 @@ class Individual:
         score += longestPath
                 
 
-        # for jump befor flag
         if(self.chromosome[-1] == 1):
             score += 1
 
 
         return score
 
-
-# Individual.level = "____G_ML__G_"
-# Individual.CHROMOSOME_LENGTH = len("____G_ML__G_")
-# gg = Individual([0,0,0,0,0,0,0,0,0,0,0,0])
-# gg2 = Individual([1,1,1,1,1,1,1,1,1,1,1,1])
-
-# print(gg.crossover(gg2))
-# print(gg.fitness)

@@ -16,21 +16,13 @@ def main():
 
     population = sorted(population, key = lambda x:x.fitness)
    
-    for i in range(15):
-
-        # sort the population in increasing order of fitness score
-        # population = sorted(population, key = lambda x:x.fitness)
-
-        # Otherwise generate new offsprings for new generation
+    for i in range(20):
         new_generation = [] 
+
         s = int((10*POPULATION_SIZE)/100)
         new_generation.extend(population[-1*s :])
 
-        # Perform Elitism, that mean 10% of fittest population
-        # goes to the next generation
 
-        # From 50% of fittest population, Individuals
-        # will mate to produce offspring
         s = int((45*POPULATION_SIZE)/100)
         for _ in range(s):
         	parent1 = random.choice(population[-50:])
@@ -42,15 +34,11 @@ def main():
 
 
         population = new_generation    
-
         population = sorted(population, key = lambda x:x.fitness)
-
         [print("{} , {}, {}".format(i.chromosome , i.fitness , generation)) for i in population]
                
         generation += 1
     changed = changeAnswerForMap(population[-1].chromosome)
-    # changed = changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0])
-    # print(changed)
     return get_json_result({
      "map" : list(mylevel),
       "answer" : changed,
@@ -58,7 +46,6 @@ def main():
     )
 
 
-    # return population[-1]
 
 
 
@@ -105,18 +92,8 @@ def changeAnswerForMap(answer):
 
         else:
             checkContinue = True
-    # 
     return changed
     
-
-
-
-
-# if __name__ == '__main__':
-    # target = input()
-    # main()
-    # changeAnswerForMap(answer)
-    # print(changeAnswerForMap([0,0,0,1,0,0,2,0,1,0,0,0]))
 
 
 eel.start('index.html' ,size=(500,500))

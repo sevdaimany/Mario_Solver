@@ -9,23 +9,14 @@ let body;
 let bodies;
 let numberAction = -1;
 
-// 4 = down ; 1 = up ; 5  = big ; 2  = small ;
-// let input = [0, 0, 0, 1, 0, 0, 4, 0, 2, 0, 5, 0, 1, 0, 0, 4, 0, 0];
 let input;
 let size = true;
-// let input = [0,1,0,2,0,2,0,1,0];
-//
-// let mapString = ['_', '_', '_', '_', 'G', '_', 'M', 'L', '_', '_', 'G', '_'];
-// let mapString = [ '_', 'M', 'G', '_', 'L', '_'];
-// let mapString = [ 'L', 'L', 'L', 'L', 'L', 'L'];
 let mapString;
 
 let width = 1350;
-// let lengthMap = 1350 / mapString.length;
 let lengthMap;
 let mario_x = 50;
 let mario_y = 440;
-// const mushroomSound = new Audio("./audio/eatMushroom.wav");
 let ids = [];
 const map_main = {
   create: function () {
@@ -68,7 +59,7 @@ const map_main = {
         lakipoStyle.height = '64px';
         lakipoStyle.backgroundImage = "url('./icons/Boo.png')";
         lakipoStyle.position = 'absolute';
-        lakipoStyle.top = mario_y - 80 + 'px';
+        lakipoStyle.top = mario_y - 100 + 'px';
         lakipoStyle.left = `${lengthMap * i + 50}px`;
         let id = `lakipo${i}`;
         lakipo.id = id;
@@ -171,15 +162,6 @@ function CheckDiv (divId, index) {
     ediv1.top < ediv2.bottom &&
     ediv1.bottom > ediv2.top
   ) {
-    // let sound = mushroomSound.play();
-    // if (sound != undefined){
-    //   sound.then(_ =>{
-
-    //   }).catch(error=>{
-
-    //   });
-    // console.log(mario_x);
-    // }
     ids.splice (index, 1);
     ediv2.remove ();
   }
@@ -216,7 +198,6 @@ async function main () {
   input = result['answer'];
   mapString = result['map'];
   lengthMap = 1350 / mapString.length;
-  console.log (mapString);
   master_create ();
   master_update ();
   run ();
