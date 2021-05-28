@@ -197,7 +197,7 @@ async function main () {
   let result = JSON.parse (resultJson);
   input = result['answer'];
   mapString = result['map'];
-  lengthMap = 1350 / ((mapString.length)+1);
+  lengthMap = 1350 / (mapString.length);
   master_create ();
   master_update ();
   run ();
