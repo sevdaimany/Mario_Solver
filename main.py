@@ -3,7 +3,7 @@ import random
 import json
 import eel
 
-POPULATION_SIZE = 1000
+POPULATION_SIZE = 200
 eel.init("frontend")
 
 @eel.expose
@@ -16,27 +16,30 @@ def main():
 
     population = sorted(population, key = lambda x:x.fitness)
    
-    for i in range(20):
+    for i in range(15):
 
         # sort the population in increasing order of fitness score
         # population = sorted(population, key = lambda x:x.fitness)
 
         # Otherwise generate new offsprings for new generation
-        new_generation = []    
+        new_generation = [] 
+        s = int((10*POPULATION_SIZE)/100)
+        new_generation.extend(population[-1*s :])
 
         # Perform Elitism, that mean 10% of fittest population
         # goes to the next generation
-        s = int((50*POPULATION_SIZE)/100)
-        # new_generation.extend(population[-1* s:])       
 
         # From 50% of fittest population, Individuals
         # will mate to produce offspring
-        s = int((50*POPULATION_SIZE)/100)
+        s = int((45*POPULATION_SIZE)/100)
         for _ in range(s):
         	parent1 = random.choice(population[-50:])
         	parent2 = random.choice(population[-50:])
-        	child = parent1.crossover(parent2)
-        	new_generation.append(child)  
+        	(child1, child2) = parent1.crossover(parent2)
+        	new_generation.append(child1)  
+        	new_generation.append(child2)  
+
+
 
         population = new_generation    
 
