@@ -22,40 +22,60 @@ class Individual:
         return [cls.randomMove() for _ in range(cls.CHROMOSOME_LENGTH)]
     
 
-    def mutation(self):
+    def mutation(self , child):
         p = random.random()
         if p  < 0.2:
              randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
-             self.chromosome[randIndex] = 0
+             child[randIndex] = 0
     
 
-    def crossover (self , mate):
+    # def crossover (self , mate):
 
-        # chromosome for offspring
-        child_chromosome = []
-        for gp1, gp2 in zip(self.chromosome, mate.chromosome):
+    #     # chromosome for offspring
+    #     child_chromosome = []
+    #     for gp1, gp2 in zip(self.chromosome, mate.chromosome):
 
-            # random probability
-            prob = random.random()
+    #         # random probability
+    #         prob = random.random()
 
-            # if prob is less than 0.45, insert gene
-            # from parent 1
-            if prob < 0.5:
-            	child_chromosome.append(gp1)
+    #         # if prob is less than 0.45, insert gene
+    #         # from parent 1
+    #         if prob < 0.5:
+    #         	child_chromosome.append(gp1)
 
-            # if prob is between 0.45 and 0.90, insert
-            # gene from parent 2
-            else:
-            	child_chromosome.append(gp2)
+    #         # if prob is between 0.45 and 0.90, insert
+    #         # gene from parent 2
+    #         else:
+    #         	child_chromosome.append(gp2)
 
-            # otherwise insert random gene(mutate),
-            # for maintaining diversity
+    #         # otherwise insert random gene(mutate),
+    #         # for maintaining diversity
             
-            self.mutation()
+    #         self.mutation()
 
-        # create new Individual(offspring) using
-        # generated chromosome for offspring
-        return Individual(child_chromosome)
+    #     # create new Individual(offspring) using
+    #     # generated chromosome for offspring
+
+        # return Individual(child_chromosome)
+
+    def crossover(self , mate):
+        child_chromosome1 = []
+        child_chromosome2 = []
+        size1 =(int)((len(self.chromosome) / 2 ) )- 1
+        size2 = len(self.chromosome) - size1
+        child_chromosome1.extend(self.chromosome[:size1])
+        child_chromosome1.extend(mate.chromosome[-1*size2 :])
+        self.mutation(child_chromosome1)
+#
+        child_chromosome2.extend(mate.chromosome[:size1])
+        child_chromosome2.extend(self.chromosome[-1*size2 :])
+        self.mutation(child_chromosome2)
+        return Individual(child_chromosome1) , Individual(child_chromosome2)
+        
+        
+
+
+
 
 
     # def fittness(self):
@@ -135,11 +155,13 @@ class Individual:
                         or (self.level[i + 1] == "_" and self.level[i + 2] == "M") or (self.level[i + 1] == "M" and self.level[i + 2] == "_")):
                         score += -1
 
+
             if( self.chromosome[i] == 2 ):
                if i <= self.CHROMOSOME_LENGTH -2 and  self.level[i+1] != 'L' :
                    score += -1
                if i > self.CHROMOSOME_LENGTH -2:
                     score += -1
+
 
         
         
@@ -147,9 +169,10 @@ class Individual:
                 if (self.chromosome[i-1] != 1 and i >= 1) or (self.chromosome[i-2] != 1 and i >= 2):
                      if lenPath > longestPath :
                         longestPath = lenPath
-                        lenPath = 0
+                     lenPath = 0
                 if (self.chromosome[i-2] == 1 and i >=2 ):
                     score +=2
+
 
                 
             elif (current_step == 'L' ):
@@ -157,11 +180,11 @@ class Individual:
                 if(self.chromosome[i-1] != 2 and i >=1 ):
                       if lenPath > longestPath :
                         longestPath = lenPath
-                        lenPath = 0
+                      lenPath = 0
                 if self.chromosome[i-2] == 1 and i >=2 :
                       if lenPath > longestPath :
                         longestPath = lenPath
-                        lenPath = 0
+                      lenPath = 0
                
                 
             elif (current_step == 'M' and (i == 0 or self.chromosome[i - 1] != 1) ):
@@ -180,10 +203,14 @@ class Individual:
         if(self.chromosome[-1] == 1):
             score += 1
 
+
         return score
 
 
-# Individual.level = "M_G__M___G"
-# Individual.CHROMOSOME_LENGTH = len("M_G__M___G")
-# gg = Individual([1,0,0,0,0,0,0,1,0,0])
+# Individual.level = "____G_ML__G_"
+# Individual.CHROMOSOME_LENGTH = len("____G_ML__G_")
+# gg = Individual([0,0,0,0,0,0,0,0,0,0,0,0])
+# gg2 = Individual([1,1,1,1,1,1,1,1,1,1,1,1])
+
+# print(gg.crossover(gg2))
 # print(gg.fitness)
