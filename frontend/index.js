@@ -141,6 +141,7 @@ const action = function (actionMario) {
   if (actionMario === 0) lock_right = false;
   if (actionMario === 1) lock_up = false;
   if (actionMario === 4) lock_down = false;
+  if (actionMario === 2) size = false;
 };
 
 const release = function (actionMario) {
