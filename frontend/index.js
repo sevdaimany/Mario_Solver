@@ -12,10 +12,14 @@ let numberAction = -1;
 let input;
 let size = true;
 let mapString;
+let hasAnswer = true;
 
-let width = 1350;
+let width;
 let lengthMap;
+// let mario_x = 50;
+// let mario_x = 80;
 let mario_x = 50;
+
 let mario_y = 440;
 let ids = [];
 const map_main = {
@@ -34,7 +38,9 @@ const map_main = {
         mushroomStyle.backgroundImage = "url('./icons/Mushroom.png')";
         mushroomStyle.position = 'absolute';
         mushroomStyle.top = mario_y + 'px';
+        // mushroomStyle.left = `${lengthMap * i + 50}px`;
         mushroomStyle.left = `${lengthMap * i + 50}px`;
+
         let id = `mushroom${i}`;
         mushroom.id = id;
         ids.push (id);
@@ -47,7 +53,9 @@ const map_main = {
         goompaStyle.backgroundImage = "url('./icons/Goomba.png')";
         goompaStyle.position = 'absolute';
         goompaStyle.top = mario_y + 'px';
+        // goompaStyle.left = `${lengthMap * i + 50}px`;
         goompaStyle.left = `${lengthMap * i + 50}px`;
+
         let id = `goompa${i}`;
         goompa.id = id;
         ids.push (id);
@@ -60,7 +68,9 @@ const map_main = {
         lakipoStyle.backgroundImage = "url('./icons/Boo.png')";
         lakipoStyle.position = 'absolute';
         lakipoStyle.top = mario_y - 100 + 'px';
+        // lakipoStyle.left = `${lengthMap * i + 50}px`;
         lakipoStyle.left = `${lengthMap * i + 50}px`;
+
         let id = `lakipo${i}`;
         lakipo.id = id;
         ids.push (id);
@@ -73,11 +83,15 @@ const map_main = {
     htmls.height = '100%';
     htmls.margin = '0';
 
-    bodies.width = '1400px';
+    // bodies.width = '1400px';
+    bodies.width = `${width + lengthMap + 20}px `;
     bodies.height = '600px';
-    bodies.margin = '0px 0px 0px 50px';
+    // bodies.margin = '0px 0px 0px 50px';
+    bodies.margin = `0px 0px 0px ${0}px`;
     bodies.backgroundImage = "url('./icons/game3.jpg')";
-    bodies.backgroundSize = 'cover';
+    bodies.backgroundSize = `${1000}px 600px`;
+    bodies.backgroundPosition = 'left bottom';
+    bodies.backgroundRepeat = 'repeat-x';
   },
 };
 
@@ -113,6 +127,7 @@ const master_create = function () {
 };
 
 const master_update = function () {
+  window.scrollBy (width / (mapString.length * 50), 0);
   map_main.update ();
   map_mario.update ();
   movement ();
@@ -135,8 +150,10 @@ const release = function (actionMario) {
 };
 
 const movement = function () {
+  // console.log("hi");
   if (lock_up === false) mario_y -= 4;
-  if (lock_right === false) mario_x += lengthMap / 30;
+  // if (lock_right === false) mario_x += lengthMap / 30;
+  if (lock_right === false) mario_x += width / (mapString.length * 30);
   if (lock_down === false) mario_y += 4;
 };
 
@@ -197,10 +214,18 @@ async function main () {
   let result = JSON.parse (resultJson);
   input = result['answer'];
   mapString = result['map'];
-  lengthMap = 1350 / (mapString.length);
-  master_create ();
-  master_update ();
-  run ();
+  // hasAnswer = result['hasAnswer'];
+
+  // lengthMap = 1350 / (mapString.length);
+  if (hasAnswer == false) {
+    alert ("GAME DOESN'T HAVE ANY SOLUTION!!!!!!!!");
+  } else {
+    lengthMap = 80;
+    width = mapString.length * lengthMap;
+    master_create ();
+    master_update ();
+    run ();
+  }
 }
 
 main ();
