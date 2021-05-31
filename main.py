@@ -5,10 +5,10 @@ import eel
 import matplotlib.pyplot as plt
 import math
 
-POPULATION_SIZE = 200
-# eel.init("frontend")
+POPULATION_SIZE = 1000
+eel.init("frontend")
 
-# @eel.expose
+@eel.expose
 def main():
 
 
@@ -16,7 +16,7 @@ def main():
     # with open(address) as reader :
     #     mylevel = reader.read()
 
-    mylevel = "_M_M_GM___LL__G__L__G_M__"
+    mylevel = "____G_MLGL_G_"
     generation = 1
     population = []
     avgfit = []
@@ -25,6 +25,8 @@ def main():
 
     population = sorted(population, key = lambda x:x.fitness)
 
+    check = checkSolution(mylevel)
+
     avgfit.append(0)
     avg = 0
     for i in population:
@@ -32,7 +34,8 @@ def main():
     avg = avg / len(population)
     avgfit.append(avg)
 
-    while avgfit[-1] - avgfit[-2] > 0.0001 or avgfit[-1] < 0:
+    while avgfit[-1] - avgfit[-2] > 0.00001 or avgfit[-1] < 0 :
+    # while avgfit[-1] - avgfit[-2] == 0 or avgfit[-1] < 0:
         new_generation = [] 
 
         s = int((10*POPULATION_SIZE)/100)
@@ -63,19 +66,30 @@ def main():
         generation += 1
 
     changed = changeAnswerForMap(population[-1].chromosome)
-
     # for i in avgfit:
     #     print(i , end=" ")
 
-    chart(range(generation),avgfit[1::])
+    # chart(range(generation),avgfit[1::])
 
     return get_json_result({
      "map" : list(mylevel),
       "answer" : changed,
+      "hasAnswer" : check
     },
     )
 
     
+
+
+
+def checkSolution(level):
+    for i in range(len(level)-1):
+        if level[i] == 'G' and level[i+1] == 'L':
+            return False
+    return True
+    
+
+
 
 
 
@@ -138,8 +152,8 @@ def changeAnswerForMap(answer):
 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # execute only if run as a script
     main()
 
-# eel.start('index.html' ,size=(500,500))
+eel.start('index.html' ,size=(500,500))

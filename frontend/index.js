@@ -215,7 +215,7 @@ async function main () {
   let result = JSON.parse (resultJson);
   input = result['answer'];
   mapString = result['map'];
-  // hasAnswer = result['hasAnswer'];
+  hasAnswer = result['hasAnswer'];
 
   // lengthMap = 1350 / (mapString.length);
   if (hasAnswer == false) {
