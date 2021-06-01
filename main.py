@@ -20,6 +20,8 @@ def main():
     generation = 1
     population = []
     avgfit = []
+    maxx = []
+    minn = []
     solve = False
     initial(POPULATION_SIZE , population , mylevel)
 
@@ -33,6 +35,12 @@ def main():
         avg += i.fitness
     avg = avg / len(population)
     avgfit.append(avg)
+
+
+    maxx.append(population[-1].fitness)
+    minn.append(population[0].fitness)
+    
+
 
     while avgfit[-1] - avgfit[-2] > 0.00001 or avgfit[-1] < 0 :
         new_generation = [] 
@@ -51,7 +59,8 @@ def main():
         	new_generation.append(child1)  
         	new_generation.append(child2)
        
-
+        maxx.append(population[-1].fitness)
+        minn.append(population[0].fitness)
 
         population = new_generation 
 
@@ -71,7 +80,7 @@ def main():
     # for i in avgfit:
     #     print(i , end=" ")
 
-    # chart(range(generation),avgfit[1::])
+    chart(range(generation),avgfit[1::] , maxx , minn)
 
     return get_json_result({
      "map" : list(mylevel),
@@ -96,8 +105,11 @@ def checkSolution(level):
 
 
 
-def chart(x , y):
+def chart(x , y , yx , ym ):
     
+
+    plt.scatter(x, yx, label= "stars", color= "red", marker= "*", s=50)
+    plt.scatter(x, ym, label= "stars", color= "green", marker= "*", s=50)
     plt.plot(x, y)
     
     plt.xlabel('generation')
@@ -158,4 +170,4 @@ def changeAnswerForMap(answer):
     # execute only if run as a script
     main()
 
-eel.start('index.html' ,size=(500,500))
+# eel.start('index.html' ,size=(500,500))
