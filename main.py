@@ -12,7 +12,7 @@ eel.init("frontend")
 def main():
 
 
-    address = "level10.txt"
+    address = "./levels/level10.txt"
     with open(address) as reader :
         mylevel = reader.read()
 
