@@ -100,9 +100,9 @@ def chart(x , y):
     
     plt.plot(x, y)
     
-    plt.xlabel('fittnes')
+    plt.xlabel('generation')
     
-    plt.ylabel('generation')
+    plt.ylabel('fittnes')
     
     plt.title('genetic algorithm ')
     
