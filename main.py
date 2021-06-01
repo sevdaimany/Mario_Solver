@@ -5,7 +5,7 @@ import eel
 import matplotlib.pyplot as plt
 import math
 
-POPULATION_SIZE = 1200
+POPULATION_SIZE = 1000
 eel.init("frontend")
 
 @eel.expose
@@ -42,9 +42,11 @@ def main():
 
 
         s = int((48*POPULATION_SIZE)/100)
+        s2 = int((20*POPULATION_SIZE)/100)
+
         for _ in range(s):
-        	parent1 = random.choice(population[-50:])
-        	parent2 = random.choice(population[-50:])
+        	parent1 = random.choice(population[-1*s2:])
+        	parent2 = random.choice(population[-1*s2:])
         	(child1, child2) = parent1.crossover(parent2)
         	new_generation.append(child1)  
         	new_generation.append(child2)
@@ -61,7 +63,7 @@ def main():
 
 
         population = sorted(population, key = lambda x:x.fitness)
-        [print("{} , {}, {}".format(i.chromosome , i.fitness , generation)) for i in population]
+        # [print("{} , {}, {}".format(i.chromosome , i.fitness , generation)) for i in population]
                
         generation += 1
 
