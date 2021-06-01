@@ -12,7 +12,7 @@ eel.init("frontend")
 def main():
 
 
-    address = "./levels/level10.txt"
+    address = "./levels/level8.txt"
     with open(address) as reader :
         mylevel = reader.read()
 
@@ -72,6 +72,8 @@ def main():
 
 
         population = sorted(population, key = lambda x:x.fitness)
+        
+# =============================== print every generation's information ========================
         # [print("{} , {}, {}".format(i.chromosome , i.fitness , generation)) for i in population]
                
         generation += 1
@@ -80,7 +82,8 @@ def main():
     # for i in avgfit:
     #     print(i , end=" ")
 
-    chart(range(generation),avgfit[1::] , maxx , minn)
+# ===============================  show chart ==================================================
+    # chart(range(generation),avgfit[1::] , maxx , minn)
 
     return get_json_result({
      "map" : list(mylevel),
@@ -168,6 +171,6 @@ def changeAnswerForMap(answer):
 
 # if __name__ == "__main__":
     # execute only if run as a script
-    main()
+main()
 
-# eel.start('index.html' ,size=(500,500))
+eel.start('index.html' ,size=(500,500))
