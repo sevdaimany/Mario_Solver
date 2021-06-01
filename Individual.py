@@ -22,27 +22,46 @@ class Individual:
 
     def mutation(self , child):
         p = random.random()
-        if p  < 0.2:
+        if p  < 0.5:
              randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
              child[randIndex] = 0
     
 
 
+#     def crossover(self , mate):
+#         child_chromosome1 = []
+#         child_chromosome2 = []
+#         size1 =(int)((len(self.chromosome) / 2 ) )- 1
+#         size2 = len(self.chromosome) - size1
+#         child_chromosome1.extend(self.chromosome[:size1])
+#         child_chromosome1.extend(mate.chromosome[-1*size2 :])
+#         self.mutation(child_chromosome1)
+# #
+#         child_chromosome2.extend(mate.chromosome[:size1])
+#         child_chromosome2.extend(self.chromosome[-1*size2 :])
+#         self.mutation(child_chromosome2)
+#         return Individual(child_chromosome1) , Individual(child_chromosome2)
+        
+
+        
+   
     def crossover(self , mate):
         child_chromosome1 = []
         child_chromosome2 = []
-        size1 =(int)((len(self.chromosome) / 2 ) )- 1
-        size2 = len(self.chromosome) - size1
+        size1 =(int)((len(self.chromosome) / 3) )
+        size3 = len(self.chromosome) - size1
         child_chromosome1.extend(self.chromosome[:size1])
-        child_chromosome1.extend(mate.chromosome[-1*size2 :])
+        child_chromosome1.extend(mate.chromosome[size1:size3])
+        child_chromosome1.extend(self.chromosome[-1*size1 :])
         self.mutation(child_chromosome1)
 #
         child_chromosome2.extend(mate.chromosome[:size1])
-        child_chromosome2.extend(self.chromosome[-1*size2 :])
+        child_chromosome2.extend(self.chromosome[size1:size3])
+        child_chromosome2.extend(mate.chromosome[-1*size1 :])
         self.mutation(child_chromosome2)
         return Individual(child_chromosome1) , Individual(child_chromosome2)
         
-        
+     
 
 
 
@@ -114,3 +133,15 @@ class Individual:
 
         return score
 
+
+
+
+# Individual.level = "____G_ML__G"
+# Individual.CHROMOSOME_LENGTH = len("____G_ML__G")
+# gg = Individual([1,2,3,4,5,6,7,8,9,10,11])
+# gg2 = Individual([-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11])
+
+# (one , two ) = gg.crossover(gg2)
+# print(one)
+# print(two)
+# # print(gg.fitness) 
