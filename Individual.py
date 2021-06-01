@@ -12,8 +12,14 @@ class Individual:
 
     @classmethod 
     def randomMove(cls):
-        gene = random.randint(0,2)
-        return gene
+        p = random.random()
+        if p < 0.4 :
+            return 0
+        elif p < 0.7:
+            return 2
+        return 1
+        # gene = random.randint(0,2)
+        # return gene
 
     @classmethod
     def create_chromosome(cls):  
@@ -22,9 +28,10 @@ class Individual:
 
     def mutation(self , child):
         p = random.random()
+        n = random.randint(0,2)
         if p  < 0.5:
              randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
-             child[randIndex] = 0
+             child[randIndex] = n
     
 
 
