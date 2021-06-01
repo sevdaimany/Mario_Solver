@@ -5,18 +5,18 @@ import eel
 import matplotlib.pyplot as plt
 import math
 
-POPULATION_SIZE = 1000
+POPULATION_SIZE = 1200
 eel.init("frontend")
 
 @eel.expose
 def main():
 
 
-    # address = "level6.txt"
-    # with open(address) as reader :
-    #     mylevel = reader.read()
+    address = "level10.txt"
+    with open(address) as reader :
+        mylevel = reader.read()
 
-    mylevel = "____G_MLGL_G_"
+    # mylevel = "____G_MLGL_G_"
     generation = 1
     population = []
     avgfit = []
@@ -35,20 +35,20 @@ def main():
     avgfit.append(avg)
 
     while avgfit[-1] - avgfit[-2] > 0.00001 or avgfit[-1] < 0 :
-    # while avgfit[-1] - avgfit[-2] == 0 or avgfit[-1] < 0:
         new_generation = [] 
 
-        s = int((10*POPULATION_SIZE)/100)
+        s = int((4*POPULATION_SIZE)/100)
         new_generation.extend(population[-1*s :])
 
 
-        s = int((45*POPULATION_SIZE)/100)
+        s = int((48*POPULATION_SIZE)/100)
         for _ in range(s):
         	parent1 = random.choice(population[-50:])
         	parent2 = random.choice(population[-50:])
         	(child1, child2) = parent1.crossover(parent2)
         	new_generation.append(child1)  
-        	new_generation.append(child2)  
+        	new_generation.append(child2)
+       
 
 
         population = new_generation 
