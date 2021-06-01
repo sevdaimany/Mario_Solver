@@ -84,12 +84,13 @@ const map_main = {
     htmls.margin = '0';
 
     // bodies.width = '1400px';
+    
     bodies.width = `${width + lengthMap + 20}px `;
     bodies.height = '600px';
     // bodies.margin = '0px 0px 0px 50px';
     bodies.margin = `0px 0px 0px ${0}px`;
     bodies.backgroundImage = "url('./icons/game3.jpg')";
-    bodies.backgroundSize = `${1000}px 600px`;
+    bodies.backgroundSize = `${1300}px 600px`;
     bodies.backgroundPosition = 'left bottom';
     bodies.backgroundRepeat = 'repeat-x';
   },
