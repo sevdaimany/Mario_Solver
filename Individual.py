@@ -21,6 +21,7 @@ class Individual:
         # gene = random.randint(0,2)
         # return gene
 
+   
     @classmethod
     def create_chromosome(cls):  
         return [cls.randomMove() for _ in range(cls.CHROMOSOME_LENGTH)]
@@ -34,6 +35,12 @@ class Individual:
              child[randIndex] = n
     
 
+    # def mutation(self , child):
+    #     p = random.random()
+    #     # n = random.randint(0,2)
+    #     if p  < 0.5:
+    #          randIndex = random.randint(0, self.CHROMOSOME_LENGTH -1) 
+    #          child[randIndex] = 0
 
 #     def crossover(self , mate):
 #         child_chromosome1 = []
@@ -84,18 +91,18 @@ class Individual:
             if( self.chromosome[i] == 1 ):
                 if(i == self.CHROMOSOME_LENGTH - 2):
                     if(self.level[i + 1] == "_" or self.level[i + 1] == "M"):
-                        score += -1
+                        score += -2
                 elif(i < self.CHROMOSOME_LENGTH - 2):
                     if((self.level[i + 1] == "_" and self.level[i + 2] == "_") or (self.level[i + 1] == "M" and self.level[i + 2] == "M")
                         or (self.level[i + 1] == "_" and self.level[i + 2] == "M") or (self.level[i + 1] == "M" and self.level[i + 2] == "_")):
-                        score += -1
+                        score += -2
 
 
             if( self.chromosome[i] == 2 ):
                if i <= self.CHROMOSOME_LENGTH -2 and  self.level[i+1] != 'L' :
-                   score += -1
+                   score += -2
                if i > self.CHROMOSOME_LENGTH -2:
-                    score += -1
+                    score += -2
 
 
         
@@ -104,6 +111,7 @@ class Individual:
                 if (self.chromosome[i-1] != 1 and i >= 1) or (self.chromosome[i-2] != 1 and i >= 2):
                      if lenPath > longestPath :
                         longestPath = lenPath
+                     score -= 2
                      lenPath = 0
                 if (self.chromosome[i-2] == 1 and i >=2 ):
                     score +=2
@@ -115,11 +123,14 @@ class Individual:
                 if(self.chromosome[i-1] != 2 and i >=1 ):
                       if lenPath > longestPath :
                         longestPath = lenPath
+                      score -= 2
                       lenPath = 0
                 if self.chromosome[i-2] == 1 and i >=2 :
                       if lenPath > longestPath :
                         longestPath = lenPath
                       lenPath = 0
+                      score -= 2
+
                
                 
             elif (current_step == 'M' and (i == 0 or self.chromosome[i - 1] != 1) ):
@@ -135,7 +146,7 @@ class Individual:
                 
 
         if(self.chromosome[-1] == 1):
-            score += 1
+            score += 3
 
 
         return score
